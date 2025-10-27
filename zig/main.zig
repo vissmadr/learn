@@ -1,8 +1,10 @@
 const std = @import("std");
+const mem = @import("std").mem; // will be used to compare bytes
+const print = std.debug.print;
 
 fn forLoop() void {
     for (0..5) |i| {
-        std.debug.print("{}\n", .{i});
+        print("{}\n", .{i});
     }
 }
 
@@ -10,12 +12,19 @@ fn arrayLoop() void {
     const arr = [_]u8{ 10, 20, 30, 40, 50, 60 };
 
     for (arr) |value| {
-        std.debug.print("{}\n", .{value});
+        print("{}\n", .{value});
     }
 }
 
+fn stringLiteral() void {
+    const bytes = "hello";
+
+    const asd = &bytes;
+    print("{}\n", .{asd});
+}
+
 fn multilineStringLiteral() void {
-    const str =
+    const gibberish =
         \\one
         \\two two two
         \\ t H r 3 # \n \n || \\ /askdk/ nvljsda
@@ -23,9 +32,25 @@ fn multilineStringLiteral() void {
         \\five
     ;
 
-    std.debug.print("{s}\n", .{str});
+    print("{s}\n", .{gibberish});
+
+    const helloWorldInC =
+        \\#include <stdio.h>
+        \\
+        \\int main(int argc, char **argv) {
+        \\    printf("hello world\n");
+        \\    return 0;
+        \\}
+    ;
+
+    print("{s}\n", .{helloWorldInC});
 }
 
 pub fn main() void {
-    multilineStringLiteral();
+    const solid: i32 = 42;
+    print("{}\n", .{solid});
+
+    var fluid: i32 = 1234;
+    fluid = 5678;
+    print("{}\n", .{fluid});
 }
