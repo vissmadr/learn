@@ -89,6 +89,53 @@ fn wrappingOperators() void {
     print("Wrapping addition: {d}\n", .{b +% 5});
 }
 
+fn binary() void {
+    const bin = 0b1;
+    print("{d}\n", .{bin << 11});
+}
+
+fn pointerMagic() void {
+    var runtime1: i32 = 42;
+    var runtime2: i32 = 42;
+    var runtime3: i32 = 42;
+    var runtime4: i32 = 42;
+
+    const runtimePointer1 = &runtime1;
+    const runtimePointer2 = &runtime2;
+    const runtimePointer3 = &runtime3;
+    const runtimePointer4 = &runtime4;
+
+    print("runtimePointer1: {p}\n", .{runtimePointer1});
+    print("runtimePointer2: {p}\n", .{runtimePointer2});
+    print("runtimePointer3: {p}\n", .{runtimePointer3});
+    print("runtimePointer4: {p}\n", .{runtimePointer4});
+
+    print("\n", .{});
+
+    const constant1: i32 = 42;
+    const constant2: i32 = 42;
+    const constant3: i32 = 42;
+    const constant4: i32 = 42;
+
+    const constantPointer1 = &constant1;
+    const constantPointer2 = &constant2;
+    const constantPointer3 = &constant3;
+    const constantPointer4 = &constant4;
+
+    print("constantPointer1: {p}\n", .{constantPointer1});
+    print("constantPointer2: {p}\n", .{constantPointer2});
+    print("constantPointer3: {p}\n", .{constantPointer3});
+    print("constantPointer4: {p}\n", .{constantPointer4});
+}
+
 pub fn main() void {
-    wrappingOperators();
+    for (0..2) |_| {
+        print("\n", .{});
+    }
+
+    pointerMagic();
+
+    for (0..2) |_| {
+        print("\n", .{});
+    }
 }
