@@ -19,8 +19,8 @@ fn arrayLoop() void {
 fn stringLiteral() void {
     const bytes = "hello";
 
-    const asd = &bytes;
-    print("{}\n", .{asd});
+    print("{}\n", .{@TypeOf(bytes)});
+    print("{c}\n", .{bytes[1]});
 }
 
 fn multilineStringLiteral() void {
@@ -46,11 +46,49 @@ fn multilineStringLiteral() void {
     print("{s}\n", .{helloWorldInC});
 }
 
-pub fn main() void {
-    const solid: i32 = 42;
-    print("{}\n", .{solid});
+fn destructure() void {
+    var x: i32 = undefined;
+    var y: i32 = undefined;
+    var z: i32 = undefined;
 
-    var fluid: i32 = 1234;
-    fluid = 5678;
-    print("{}\n", .{fluid});
+    const tuple = .{ 10, 20, 30 };
+
+    x, y, z = tuple;
+
+    print("{d}\n", .{x}); // 10
+    print("{d}\n", .{y}); // 20
+    print("{d}\n", .{z}); // 30
+
+    const array = [_]i32{ 100, 200, 300 };
+
+    x, y, z = array;
+
+    print("{d}\n", .{x}); // 100
+    print("{d}\n", .{y}); // 200
+    print("{d}\n", .{z}); // 300
+
+    const vector: @Vector(3, i32) = .{ 1000, 2000, 3000 };
+
+    x, y, z = vector;
+
+    print("{d}\n", .{x}); // 1000
+    print("{d}\n", .{y}); // 2000
+    print("{d}\n", .{z}); // 3000
+
+    const vx, _, const vz: i32 = vector;
+
+    print("{d}\n", .{vx}); // 1000
+    print("{d}\n", .{vz}); // 3000
+}
+
+fn wrappingOperators() void {
+    const a: u8 = 1;
+    print("Wrapping subtraction: {d}\n", .{a -% 5});
+
+    const b: u8 = 254;
+    print("Wrapping addition: {d}\n", .{b +% 5});
+}
+
+pub fn main() void {
+    wrappingOperators();
 }
