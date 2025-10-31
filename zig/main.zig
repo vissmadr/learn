@@ -128,12 +128,101 @@ fn pointerMagic() void {
     print("constantPointer4: {p}\n", .{constantPointer4});
 }
 
+fn arrays() void {
+    const eightColors = [8][3]u8{
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+        [3]u8{ 100, 100, 100 },
+    };
+
+    print("Fourth Color: {s}\n", .{eightColors[3]});
+    print("Sixth Red Value: {d}\n", .{eightColors[5][0]});
+}
+
+fn arrayCopy() void {
+    var arrA = [5]u8{ 100, 100, 100, 100, 100 };
+
+    var arrB = arrA;
+
+    arrA[0] += 5;
+    arrB[2] += 1;
+    arrB[3] += 1;
+    arrB[4] += 1;
+
+    print("arrA: {s}\n", .{arrA});
+    print("arrB: {s}\n", .{arrB});
+
+    // Output:
+    // arrA: idddd
+    // arrB: ddeee
+}
+
+fn arrayLength() void {
+    const arr = [5]u8{ 10, 20, 30, 40, 50 };
+    const length = arr.len;
+
+    print("{d}\n", .{length});
+    // Output:
+    // 5
+}
+
+fn arrayDestructure() void {
+    const color = [3]u8{ 101, 102, 103 };
+
+    const R, const G, const B = color;
+
+    print("RGB({d}, {d}, {d})\n", .{ R, G, B });
+
+    const eightColors = [8][3]u8{
+        [3]u8{ 100, 101, 110 },
+        [3]u8{ 100, 102, 120 },
+        [3]u8{ 100, 103, 130 },
+        [3]u8{ 100, 104, 140 },
+        [3]u8{ 100, 105, 150 },
+        [3]u8{ 100, 106, 160 },
+        [3]u8{ 100, 107, 170 },
+        [3]u8{ 100, 108, 180 },
+    };
+
+    const thirdRed, const thirdGreen, const thirdBlue = eightColors[2];
+
+    print("RGB({d}, {d}, {d})\n", .{ thirdRed, thirdGreen, thirdBlue });
+
+    // Output:
+    // RGB(101, 102, 103)
+    // RGB(100, 103, 130)
+}
+
+fn vectors() void {
+    const a = @Vector(3, u8){ 10, 20, 30 };
+    const b = @Vector(3, u8){ 50, 50, 50 };
+
+    const c = a + b;
+
+    print("a: {}\n", .{a});
+    print("b: {}\n", .{b});
+    print("c: {}\n", .{c});
+}
+
+fn splat() void {
+    const vec: @Vector(4, i32) = @splat(42);
+    print("vec: {}\n", .{vec});
+
+    const arr: [4]i32 = @splat(42);
+    print("arr: {any}\n", .{arr});
+}
+
 pub fn main() void {
     for (0..2) |_| {
         print("\n", .{});
     }
 
-    pointerMagic();
+    splat();
 
     for (0..2) |_| {
         print("\n", .{});
